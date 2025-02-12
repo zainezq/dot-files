@@ -21,7 +21,7 @@
 
 ;;ORG ------------------------------------------------
 ;;ORG MODE AGENDA
-(setq org-agenda-files '("~/master-folder/org_files/master.org"
+(setq org-agenda-files '("~/master-folder/org_files/master1.org"
 			 "~/master-folder/org_files/deen-org/deen.org"
 			 "~/master-folder/org_files/career-org/career.org"))
 (require 'org)
@@ -128,4 +128,11 @@
 (add-hook 'emacs-startup-hook #'kill-other-buffers-startup)
 
 
+(defun find-file-root (FILENAME)
+  "Edit a file as root."
+  (interactive "FFind file: ")
+  (find-file (concat "/sudo::" FILENAME)))
+
+provide ('init)
+;;; init.el ends here
 
