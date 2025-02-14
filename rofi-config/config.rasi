@@ -1,0 +1,4 @@
+// https://github.com/davatorium/rofi/blob/next/themes/fancy.rasi
+configuration {
+}
+@theme "./themes/fancy.rasi"
