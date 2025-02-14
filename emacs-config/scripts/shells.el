@@ -1,9 +1,18 @@
-;;; eshell.el --- for the shells -*- lexical-binding: t; -*-
+;;; shells.el --- Shell setup for Emacs -*- lexical-binding: t; -*-
+
+;; Author: Zaine
+;; Version: 1.0
+;; URL: https://github.com/zainezq/dot-files/
 
 ;;; Commentary:
-;; Simply sets up eshell and vterm
+
+;; el file for shell config
 
 ;;; Code:
+
+;; ----------------------------------------------------------------------------
+;; Eshell Toggle Configuration
+;; ----------------------------------------------------------------------------
 
 (use-package eshell-toggle
   :custom
@@ -12,15 +21,27 @@
   (eshell-toggle-run-command nil)
   (eshell-toggle-init-function #'eshell-toggle-init-ansi-term))
 
-  (use-package eshell-syntax-highlighting
-    :after esh-mode
-    :config
-    (eshell-syntax-highlighting-global-mode +1))
+;; ----------------------------------------------------------------------------
+;; Eshell Syntax Highlighting Configuration
+;; ----------------------------------------------------------------------------
+
+(use-package eshell-syntax-highlighting
+  :after esh-mode
+  :config
+  (eshell-syntax-highlighting-global-mode +1))
+
+;; ----------------------------------------------------------------------------
+;; Vterm Configuration
+;; ----------------------------------------------------------------------------
 
 (use-package vterm
-:config
-(setq shell-file-name "/bin/zsh"
-      vterm-max-scrollback 5000))
+  :config
+  (setq shell-file-name "/bin/zsh"
+        vterm-max-scrollback 5000))
+
+;; ----------------------------------------------------------------------------
+;; Vterm Toggle Configuration
+;; ----------------------------------------------------------------------------
 
 (use-package vterm-toggle
   :after vterm
@@ -29,17 +50,17 @@
   (setq vterm-toggle-scope 'project)
   (add-to-list 'display-buffer-alist
                '((lambda (buffer-or-name _)
-                     (let ((buffer (get-buffer buffer-or-name)))
-                       (with-current-buffer buffer
-                         (or (equal major-mode 'vterm-mode)
-                             (string-prefix-p vterm-buffer-name (buffer-name buffer))))))
+                   (let ((buffer (get-buffer buffer-or-name)))
+                     (with-current-buffer buffer
+                       (or (equal major-mode 'vterm-mode)
+                           (string-prefix-p vterm-buffer-name (buffer-name buffer)))))))
                   (display-buffer-reuse-window display-buffer-at-bottom)
-                  ;;(display-buffer-reuse-window display-buffer-in-direction)
-                  ;;display-buffer-in-direction/direction/dedicated is added in emacs27
-                  ;;(direction . bottom)
-                  ;;(dedicated . t) ;dedicated is supported in emacs27
                   (reusable-frames . visible)
                   (window-height . 0.3))))
+
+;; ----------------------------------------------------------------------------
+;; Provide
+;; ----------------------------------------------------------------------------
 
 (provide 'shells)
 
