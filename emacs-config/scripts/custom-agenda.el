@@ -1,3 +1,19 @@
+;;; custom-agenda.el --- Custom Org Agenda Commands and Helper Functions
+
+;; Author: Zaine
+;; Version: 1.0
+;; URL: https://github.com/zainezq/dot-files/
+
+;;; Commentary:
+
+;; Custom file for org agenda
+
+;;; Code:
+
+;; ----------------------------------------------------------------------------
+;; Custom Org Agenda Commands
+;; ----------------------------------------------------------------------------
+
 (setq org-agenda-custom-commands
       '(("br" "Reading Books"
          ((tags "+Group=\"Reading\"+Status=\"Reading\""
@@ -21,15 +37,13 @@
           (tags "+Group=\"Study\"+Status=\"Reference\""
                 ((org-agenda-overriding-header "Reference Books")))))
 
-	("bo" "Other Books"
+        ("bo" "Other Books"
          ((tags "+Group=\"Others\"+Status=\"Reading\""
                 ((org-agenda-overriding-header "Books I am Reading")))
           (tags "+Group=\"Others\"+Status=\"To Read\""
                 ((org-agenda-overriding-header "Books To Read")))
           (tags "+Group=\"Others\"+Status=\"Read\""
                 ((org-agenda-overriding-header "Books I Have Read")))))
-
-
 
         ("za" "All Job Applications"
          ((tags "+STATUS={Applied\\|Not applied\\|Rejected\\|Interviewing\\|Assessment}"
@@ -46,6 +60,10 @@
                 ((org-agenda-overriding-header "Jobs in Interviewing Stage")))
           (tags "+STATUS=\"Assessment\""
                 ((org-agenda-overriding-header "Jobs in Assessment Stage")))))))
+
+;; ----------------------------------------------------------------------------
+;; Helper Functions for Books
+;; ----------------------------------------------------------------------------
 
 (defun update-book-categories ()
   "Update categories based on the Status and Group properties."
@@ -77,11 +95,8 @@
          (org-set-property "CATEGORY" "Additional Study"))
         ((and (string= group "Study") (string= status "Studied A"))
          (org-set-property "CATEGORY" "Studied A"))
-	((and (string= group "Study") (string= status "Reference"))
+        ((and (string= group "Study") (string= status "Reference"))
          (org-set-property "CATEGORY" "Reference")))))))
-
-(add-hook 'org-mode-hook
-          (lambda () (add-hook 'before-save-hook 'update-book-categories nil 'local)))
 
 (defun calculate-book-durations ()
   "Calculate the total days spent and days since finished for books."
@@ -104,10 +119,18 @@
        (when days-since-finished
          (org-set-property "DAYS_SINCE_FINISHED" (number-to-string days-since-finished)))))))
 
+;; Add hooks to update book categories and calculate durations before saving
+(add-hook 'org-mode-hook
+          (lambda () (add-hook 'before-save-hook 'update-book-categories nil 'local)))
+
 (add-hook 'org-mode-hook
           (lambda () (add-hook 'before-save-hook 'calculate-book-durations nil 'local)))
 
- (defun insert-new-book-entry ()
+;; ----------------------------------------------------------------------------
+;; Template Insertion Functions
+;; ----------------------------------------------------------------------------
+
+(defun insert-new-book-entry ()
   "Insert a new book entry with predefined properties."
   (interactive)
   (org-insert-heading)
@@ -136,4 +159,10 @@
     (insert "*** What to work on next:\n")
     (insert "*** Commit message:\n")))
 
+;; ----------------------------------------------------------------------------
+;; Provide
+;; ----------------------------------------------------------------------------
+
 (provide 'custom-agenda)
+
+;;; custom-agenda.el ends here

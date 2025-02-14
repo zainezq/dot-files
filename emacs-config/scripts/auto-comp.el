@@ -2,7 +2,7 @@
 
 ;; Author: Zaine
 ;; Version: 1.0
-;; URL: https://github.com/yourusername/your-repo
+;; URL: https://github.com/zainezq/dot-files/
 
 ;;; Commentary:
 ;; This file configures autocompletion, project management, and navigation tools

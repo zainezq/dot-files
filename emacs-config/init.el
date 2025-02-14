@@ -2,7 +2,7 @@
 
 ;; Author: Zaine
 ;; Version: 1.0
-;; URL: https://github.com/zainezq/dot-files/emacs-config
+;; URL: https://github.com/zainezq/dot-files/
 
 ;;; Commentary:
 
